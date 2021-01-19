@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.example.demo.dao.UserDao">
+
+    <select id="show_user_all" resultType="com.example.demo.entity.User">
+        select *
+        from user_
+    </select>
+
+    <select id="show_user_by_user_name" parameterType="String" resultType="com.example.demo.entity.User">
+        select user_name, user_password, register_time, login_time
+        from user_
+        where user_name=#{user_name}
+    </select>
+
+    <insert id="add_user" useGeneratedKeys="false">
+	    insert into
+	    user_ (user_id, user_name, user_phone, user_password, user_wallet, register_time, login_time)
+	    values (#{user_id}, #{user_name}, #{user_phone}, #{user_password}, #{user_wallet}, #{register_time}, #{login_time})
+    </insert>
+
+    <delete id="delete_user_by_user_id" parameterType="int">
+	    delete from
+	    user_
+	    where user_id=#{user_id}
+    </delete>
+
+    <delete id="delete_user_by_user_name" parameterType="String">
+	    delete from
+	    user_
+	    where user_name=#{user_name}	
+    </delete>
+
+    <update id="update_user_name_by_user_id">
+	    update
+	    user_
+	    set user_name=#{user_name}
+	    where user_id=#{user_id}
+    </update>
+
+    <update id="update_user_wallet_by_user_id">
+	    update
+	    user_
+	    set user_wallet=#{user_wallet}
+	    where user_id=#{user_id}
+    </update>
+
+    <select id="select_max_user_id" resultType="int">
+        select max(user_id)
+        from user_
+    </select>
+
+    <select id="select_user_wallet_by_user_id" parameterType="int" resultType="double">
+        select user_wallet
+        from user_
+        where user_id=#{user_id}
+    </select>
+    
+    <update id="update_user_name_by_user_id_Class" parameterType="com.example.demo.entity.User">
+	    update
+	    user_
+	    set user_password=#{user.user_password}
+	    where user_name=#{user.user_name}
+    </update>
+
+    <select id="select_user_name_list_by_user_id_list" parameterType="java.util.List" resultType="String">
+        select user_name
+        from user_
+        where
+        <foreach collection="user_id_list" item="item" index="index" separator="or">
+            user_id=#{item}
+        </foreach>
+    </select>
+
+    <select id="find_user_name_if_exists" parameterType="String" resultType="int">
+        select count(*)
+        from user_
+        where user_name=#{user_name}
+    </select>
+
+    <select id="select_user_password_by_user_name" parameterType="String" resultType="String">
+        select user_password
+        from user_
+        where user_name=#{user_name}
+    </select>
+
+</mapper>
