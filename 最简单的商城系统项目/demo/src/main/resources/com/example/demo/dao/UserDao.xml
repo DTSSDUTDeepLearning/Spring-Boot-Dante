@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.example.demo.dao.UserDao">
+
+    <insert id="register" useGeneratedKeys="false">
+        insert into
+        user_ (user_id, user_name, user_phone, user_password, user_wallet, register_time, login_time)
+        values (#{user_id}, #{user_name}, #{user_phone}, #{user_password}, 0, #{time_stamp}, #{time_stamp})
+    </insert>
+
+    <update id="update_user_phone_by_user_id">
+        update
+        user_
+        set user_phone=#{user_phone}
+        where user_id=#{user_id}
+    </update>
+
+    <update id="update_user_password_by_user_id">
+        update
+        user_
+        set user_password=#{user_password}
+        where user_id=#{user_id}
+    </update>
+
+    <update id="update_user_wallet_by_user_id">
+        update
+        user_
+        set user_wallet=#{user_wallet}
+        where user_id=#{user_id}
+    </update>
+
+    <update id="update_user_login_time_by_user_id">
+        update
+        user_
+        set login_time=#{login_time}
+        where user_id=#{user_id}
+    </update>
+
+    <select id="find_max_user_id" resultType="int">
+        select max(user_id)
+        from user_
+    </select>
+
+    <select id="select_user_id_by_user_name" parameterType="String" resultType="int">
+        select user_id
+        from user_
+        where user_name=#{user_name}
+    </select>
+
+    <select id="select_user_name_by_user_id" parameterType="int" resultType="String">
+        select user_name
+        from user_
+        where user_id=#{user_id}
+    </select>
+
+    <select id="select_user_phone_by_user_id" parameterType="int" resultType="String">
+        select user_phone
+        from user_
+        where user_id=#{user_id}
+    </select>
+
+    <select id="select_user_password_by_user_id" parameterType="int" resultType="String">
+        select user_password
+        from user_
+        where user_id=#{user_id}
+    </select>
+
+    <select id="select_user_wallet_by_user_id" parameterType="int" resultType="String">
+        select user_wallet
+        from user_
+        where user_id=#{user_id}
+    </select>
+
+    <select id="find_user_name_if_exists" parameterType="String" resultType="int">
+        select count(*)
+        from user_
+        where user_name=#{user_name}
+    </select>
+
+    <select id="select_user_password_by_user_name" parameterType="String" resultType="String">
+        select user_password
+        from user_
+        where user_name=#{user_name}
+    </select>
+
+</mapper>

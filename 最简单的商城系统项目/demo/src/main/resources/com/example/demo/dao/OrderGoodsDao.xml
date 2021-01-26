@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.example.demo.dao.OrderGoodsDao">
+
+    <insert id="insert_order_goods" useGeneratedKeys="false">
+        insert into
+        order_goods (order_id, goods_id, goods_number)
+        values (#{order_id}, #{goods_id}, #{goods_number})
+    </insert>
+
+    <delete id="delete_order_goods">
+        delete from
+        order_goods
+        where order_id=#{order_id}
+    </delete>
+
+    <select id="select_order_goods" parameterType="int" resultType="com.example.demo.entity.OrderGoods">
+        select goods_id, goods_number
+        from order_goods
+        where order_id=#{order_id}
+    </select>
+
+</mapper>

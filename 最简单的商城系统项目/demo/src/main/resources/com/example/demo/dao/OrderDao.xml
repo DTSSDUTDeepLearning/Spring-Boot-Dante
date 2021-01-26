@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+
+<mapper namespace="com.example.demo.dao.OrderDao">
+
+    <insert id="insert_order_with_pay" useGeneratedKeys="false">
+        insert into
+        order_ (order_id, user_id, order_state, order_price, time_stamp)
+        values (#{order_id}, #{user_id}, '待收货', #{order_price}, #{time_stamp})
+    </insert>
+
+    <insert id="insert_order_without_pay" useGeneratedKeys="false">
+        insert into
+        order_ (order_id, user_id, order_state, order_price, time_stamp)
+        values (#{order_id}, #{user_id}, '待付款', #{order_price}, #{time_stamp})
+    </insert>
+
+    <delete id="delete_order" parameterType="int">
+        delete from
+        order_
+        where order_id=#{order_id}
+    </delete>
+
+    <update id="update_order_pay" parameterType="int">
+        update
+        order_
+        set order_state='待收货'
+        where order_id=#{order_id}
+    </update>
+
+    <update id="update_order_receive" parameterType="int">
+        update
+        order_
+        set order_state='已完成'
+        where order_id=#{order_id}
+    </update>
+
+    <select id="find_max_order_id" resultType="int">
+        select max(order_id)
+        from order_
+    </select>
+
+    <select id="select_order_by_order_id" parameterType="int" resultType="com.example.demo.entity.Order">
+        select user_id, order_state, order_price, time_stamp
+        from order_
+        where order_id=#{order_id}
+    </select>
+
+    <select id="" parameterType="int" resultType="Integer">
+        select order_id
+        from order_
+        where user_id=#{user_id}
+    </select>
+
+</mapper>
